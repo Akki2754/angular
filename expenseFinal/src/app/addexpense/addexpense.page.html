@@ -1,0 +1,77 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Add Expense</ion-title>
+    <ion-buttons start>
+        <button ion-button icon-only (click)="goToDashboard()">
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Add Expense</ion-title>
+    <ion-buttons start>
+        <button ion-button icon-only (click)="goToDashboard()">
+            <ion-icon ios="ios-home-outline" md="md-home-outline"></ion-icon>
+        </button>
+      </ion-buttons>
+
+      <ion-buttons end>
+          <button ion-button icon-only (click)="goToExpenseHistory()">
+              <ion-icon ios="ios-list-box-outline" md="md-list-box-outline"></ion-icon>
+          </button>
+        </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <form [formGroup]="addExpenseForm" (submit)="createExpense(spendDate,spentAmt,spendDesc,spendRemark)">
+<ion-list>
+  <ion-item>
+    <ion-label color="primary">Date</ion-label>
+    <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMM YYYY"[(ngModel)]="spendDate" formControlName="date"
+    [class.invalid]="!addExpenseForm.controls.date.valid && blur"></ion-datetime>
+    
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary">Amount</ion-label>
+    <ion-input type = "number" placeholder="$" [(ngModel)] = "spentAmt" formControlName="amount"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary">Category</ion-label> 
+    <ion-select [(ngModel)]= "spendCate" formControlName="category">
+      <ion-option value ="Food">Food</ion-option>
+      <ion-option value ="Transport">Transport</ion-option>
+      <ion-option value ="Shopping">Shopping</ion-option>
+      <ion-option value ="Entertainment">Entertainment</ion-option>
+      <ion-option value ="Education">Education</ion-option>
+      <ion-option value ="Others">Others</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary">Description</ion-label>
+    <ion-input type = "text"  [(ngModel)]= "spendDesc" formControlName="desc"></ion-input>
+</ion-item>
+  <ion-item>
+      <ion-label color="primary">Remark</ion-label>
+      <ion-input type = "text" [(ngModel)] = "spendRemark" formControlName="remark"></ion-input>
+  </ion-item>
+</ion-list>
+<div class="error-message" 
+*ngIf="!addExpenseForm.controls.amount.valid  && 
+addExpenseForm.controls.amount.touched" style="color:red">
+  Please enter a positive amount.
+</div>
+<div class="error-message" 
+*ngIf="!addExpenseForm.controls.desc.valid  && 
+addExpenseForm.controls.desc.touched" style="color:red">
+  Please enter a description.
+</div>
+<div class="error-message" 
+*ngIf="!addExpenseForm.controls.category.valid  && 
+addExpenseForm.controls.category.touched" style="color:red">
+  Please select a category.
+</div>
+<button ion-button block [disabled]="!addExpenseForm.valid">Add</button>
+</form>
+</ion-content>
